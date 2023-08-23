@@ -28,7 +28,7 @@ public class Main {
         CadastroFuncionario cadFuncionario =  new CadastroFuncionario();
         CadastroFuncionarioTerceirizado cadFuncionarioTercerizado =  new CadastroFuncionarioTerceirizado();
         JOptionPane.getRootFrame();
-        //gerarCadastrosDeTeste();
+        
         int op;
         do {
             op = MenuCadastro.selecionarOpcaoMenuPrincipal();
