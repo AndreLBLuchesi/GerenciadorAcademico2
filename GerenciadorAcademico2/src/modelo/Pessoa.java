@@ -12,6 +12,7 @@ public abstract class Pessoa implements Comparable<Pessoa>, IExibirInformacoes{
     protected String nome;
     protected String cpf;
     protected LocalDate dataNascimento;
+    protected String email;
     protected Endereco endereco;
 
 
@@ -19,13 +20,13 @@ public abstract class Pessoa implements Comparable<Pessoa>, IExibirInformacoes{
         endereco = new Endereco();
     }
 
-    public Pessoa(String nome, String cpf, LocalDate dataNascimento, Endereco endereco) {
+    public Pessoa(String nome, String cpf, LocalDate dataNascimento, String email, Endereco endereco) {
         this.nome = nome;
         this.cpf = cpf;
         this.dataNascimento = dataNascimento;
+        this.email = email;
         this.endereco = endereco;
     }
-
 
     public String getNome() {
         return nome;
@@ -57,6 +58,14 @@ public abstract class Pessoa implements Comparable<Pessoa>, IExibirInformacoes{
 
     public void setEndereco(Endereco endereco) {
         this.endereco = endereco;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public long calcularIdade(){

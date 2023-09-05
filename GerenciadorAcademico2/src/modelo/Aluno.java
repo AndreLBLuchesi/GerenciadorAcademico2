@@ -6,22 +6,18 @@ import java.time.LocalDate;
  */
 public class Aluno extends Pessoa{
     protected String ra;
-    protected Curso curso;
-    protected LocalDate dataMatricula;
-    protected String situacao;
+    protected MatriculaCurso matriculaCurso;
+    
     
     public Aluno() {
-        this.curso = new Curso();
-    }
-    
-    public Aluno(String nome, String cpf, LocalDate dataNascimento, Endereco endereco, String ra, Curso curso, LocalDate dataMatricula, String situacao) {
-        super(nome, cpf, dataNascimento, endereco);
-        this.ra = ra;
-        this.curso = curso;
-        this.dataMatricula = dataMatricula;
-        this.situacao = situacao;
+        this.matriculaCurso = new MatriculaCurso();
     }
 
+    public Aluno(String ra, MatriculaCurso curso, String nome, String cpf, LocalDate dataNascimento, String email, Endereco endereco) {
+        super(nome, cpf, dataNascimento, email, endereco);
+        this.ra = ra;
+        this.matriculaCurso = curso;
+    }
 
     public String getRa() {
         return ra;
@@ -31,38 +27,25 @@ public class Aluno extends Pessoa{
         this.ra = ra;
     }
 
-    public Curso getCurso() {
-        return curso;
+    public MatriculaCurso getMatriculaCurso() {
+        return matriculaCurso;
     }
 
-    public void setCurso(Curso curso) {
-        this.curso = curso;
-    }
-
-    public LocalDate getDataMatricula() {
-        return dataMatricula;
-    }
-
-    public void setDataMatricula(LocalDate dataMatricula) {
-        this.dataMatricula = dataMatricula;
-    }
-
-    public String getSituacao() {
-        return situacao;
-    }
-
-    public void setSituacao(String situacao) {
-        this.situacao = situacao;
-    }
-
-    public int getAnoMatricula(){
-        return getDataMatricula().getYear();
+    public void setMatriculaCurso(MatriculaCurso matriculaCurso) {
+        this.matriculaCurso = matriculaCurso;
     }
     
     @Override
+    public String getInformacoes() {
+        String info = nome +  " | CPF: " + cpf + " | RA: " + ra + " | Idade: " + calcularIdade() + " anos | ";
+        if(this.matriculaCurso != null){
+            info+= "Curso: " + matriculaCurso.getCurso().getNome();
+        }
+        return info;
+    }
+    @Override
     public void exibirInformacoes(){
-        System.out.println(nome +  " | Cpf: " + cpf + " | RA: " + ra + " | Idade: " + calcularIdade() + " anos | "
-                            + "Curso: " + curso.getNome() + " | Ano matricula: " + getAnoMatricula() + " | Situação: " + situacao);
+        System.out.println(getInformacoes());
     }
 }
 

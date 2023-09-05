@@ -10,16 +10,24 @@ import modelo.Pessoa;
 
 import util.DialogBoxUtils;
 
-public class CadastroAluno extends CadastroPessoa{
+public class CadastroAluno extends CadastroPessoa implements ICadastro{
     
-    private CadastroCurso cadCurso;
+    private CadastroMatriculaCurso cadMatCurso;
 
-    public CadastroAluno(CadastroCurso cadCurso) {
-        this.cadCurso = cadCurso;
+    public CadastroAluno() {
     }
 
-    public CadastroCurso getCadCurso() {
-        return cadCurso;
+    
+    public CadastroAluno(CadastroMatriculaCurso cadCurso) {
+        this.cadMatCurso = cadCurso;
+    }
+
+    public CadastroMatriculaCurso getCadMatCurso() {
+        return cadMatCurso;
+    }
+
+    public void setCadMatCurso(CadastroMatriculaCurso cadMatCurso) {
+        this.cadMatCurso = cadMatCurso;
     }
     
     public void menuAluno() {
@@ -30,24 +38,10 @@ public class CadastroAluno extends CadastroPessoa{
         super.setarDados(aluno);
         System.out.print("RA: ");
         aluno.setRa(Input.nextLine());
-        aluno.setDataMatricula(LocalDate.now());
 
-        int op = DialogBoxUtils.exibirCaixaConfirmacao("Adicionar curso", "Deseja adicionar o curso? ");
+        int op = DialogBoxUtils.exibirCaixaConfirmacao("Matricula curso", "Deseja realizar a matrícula em um curso? ");
         if (op == 0) {
-            Curso cursoPesquisa;
-            do {
-                cursoPesquisa = cadCurso.pesquisa();
-
-                if (cursoPesquisa == null) {
-                    if (DialogBoxUtils.exibirCaixaConfirmacao("Curso não encontrado!", "Curso não encontrado! \nDeseja pesquisar novamente?") == 1) {
-                        break;
-                    }
-                } else {
-                    aluno.setCurso(cursoPesquisa);
-                    System.out.print("Situação: ");
-                    aluno.setSituacao(escolhaSituacao());
-                }
-            } while (cursoPesquisa == null);
+            cadMatCurso.realizarMatriculaCurso(aluno);
         }
     }
     
@@ -101,14 +95,14 @@ public class CadastroAluno extends CadastroPessoa{
         return listaPessoas.stream().filter(e -> e.getClass() == Aluno.class).map(a -> (Aluno) a).collect(Collectors.toList());
     }
 
-    public int qtdAlunosCurso(Curso curso) {
-        int contAlunos = 0;
-
-        for (Aluno al : listaDeAlunos()) {
-            if (al.getSituacao().equals("Em andamento") && curso.equals(al.getCurso())) {
-                contAlunos++;
-            }
-        }
-        return contAlunos;
-    }
+//    public int qtdAlunosCurso(Curso curso) {
+//        int contAlunos = 0;
+//
+//        for (Aluno al : listaDeAlunos()) {
+//            if (al.getSituacao().equals("Em andamento") && curso.equals(al.getMatriculaCurso())) {
+//                contAlunos++;
+//            }
+//        }
+//        return contAlunos;
+//    }
 }

@@ -67,8 +67,14 @@ public abstract class CadastroPessoa implements ICadastro{
         String dadoBusca = Input.nextLine();
         return pesquisa(listaPessoas, dadoBusca.toLowerCase());
     }
+    
+    public Pessoa pesquisa(List<Pessoa> listaPessoas) {
+        System.out.println("Informe o Cpf: ");
+        String dadoBusca = Input.nextLine();
+        return pesquisa(listaPessoas, dadoBusca.toLowerCase());
+    }
 
-    public Pessoa pesquisa(ArrayList<Pessoa> listaPessoas, String dadoBusca) {
+    public Pessoa pesquisa(List<Pessoa> listaPessoas, String dadoBusca) {
         for (Pessoa listaPessoa : listaPessoas) {
             if (listaPessoa.getNome().toLowerCase().equals(dadoBusca) || listaPessoa.getCpf().equals(dadoBusca)) {
                 return listaPessoa;

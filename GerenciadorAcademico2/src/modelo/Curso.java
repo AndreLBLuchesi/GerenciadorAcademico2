@@ -1,22 +1,29 @@
 package modelo;
 
-public class Curso {
-    protected String nome;
-    protected int cargaHoraria;
-    protected int qtdSemestres;
-    protected Coordenador coordenador;
-    
+import java.util.ArrayList;
+import java.util.List;
+
+public class Curso implements Comparable<Curso>, IExibirInformacoes {
+
+    private String nome;
+    private int cargaHoraria;
+    private int qtdSemestres;
+    private Professor coordenador;
+    private List<Disciplina> disciplinas;
+
     //variável auxiliar 
     private int qtdAlunosCurso;
-    
+
     public Curso() {
+        this.disciplinas = new ArrayList<>();
     }
 
-    public Curso(String nome, int cargaHoraria, int qtdSemestres, Coordenador coordenador) {
+    public Curso(String nome, int cargaHoraria, int qtdSemestres, Professor coordenador) {
         this.nome = nome;
         this.cargaHoraria = cargaHoraria;
         this.qtdSemestres = qtdSemestres;
         this.coordenador = coordenador;
+        this.disciplinas = new ArrayList<>();
     }
 
     public String getNome() {
@@ -43,11 +50,11 @@ public class Curso {
         this.qtdSemestres = qtdSemestres;
     }
 
-    public Coordenador getCoordenador() {
+    public Professor getCoordenador() {
         return coordenador;
     }
 
-    public void setCoordenador(Coordenador coordenador) {
+    public void setCoordenador(Professor coordenador) {
         this.coordenador = coordenador;
     }
 
@@ -59,7 +66,44 @@ public class Curso {
         this.qtdAlunosCurso = qtdAlunosCurso;
     }
     
-    public void exibirInformacoes(){
-        System.out.println("Curso: " + nome + " | Carga horária: " + cargaHoraria + " | Quantidade semestre: " + qtdSemestres + " | Coordenador: " + coordenador.getNome() + " | Quantidade alunos: " + qtdAlunosCurso);
+    public void IncrementarQtdAlunosCurso(){
+        this.qtdAlunosCurso++;
+    }
+    
+    public void decrementarQtdAlunosCurso(){
+        this.qtdAlunosCurso--;
+    }
+
+    public List<Disciplina> getDisciplinas() {
+        return disciplinas;
+    }
+
+    public void setDisciplinas(List<Disciplina> disciplinas) {
+        this.disciplinas = disciplinas;
+    }
+
+    public void adicionarDisciplina(Disciplina disc) {
+        disc.setCurso(this);
+        this.disciplinas.add(disc);
+    }
+
+    public boolean removerDisciplina(Disciplina disc) {
+        disc.setCurso(null);
+        return this.disciplinas.remove(disc);
+    }
+
+    @Override
+    public String getInformacoes() {
+        return "Curso: " + nome + " | Carga horária: " + cargaHoraria + " | Quantidade semestre: " + qtdSemestres + " | Coordenador: " + coordenador.getNome() + " | Quantidade alunos: " + qtdAlunosCurso;
+    }
+
+    @Override
+    public void exibirInformacoes() {
+        System.out.println(getInformacoes());
+    }
+
+    @Override
+    public int compareTo(Curso o) {
+        return this.nome.compareToIgnoreCase(o.getNome());
     }
 }

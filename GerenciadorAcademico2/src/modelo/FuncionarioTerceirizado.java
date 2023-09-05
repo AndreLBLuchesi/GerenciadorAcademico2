@@ -8,8 +8,8 @@ public class FuncionarioTerceirizado extends Funcionario{
     public FuncionarioTerceirizado() {
     }
 
-    public FuncionarioTerceirizado(String EmpresaTercerizada, String ctps, double salario, String nome, String cpf, LocalDate dataNascimento, Endereco endereco) {
-        super(ctps, salario, nome, cpf, dataNascimento, endereco);
+    public FuncionarioTerceirizado(String EmpresaTercerizada, String ctps, double salario, String cargo, String nome, String cpf, LocalDate dataNascimento, String email, Endereco endereco) {
+        super(ctps, salario, cargo, nome, cpf, dataNascimento, email, endereco);
         this.EmpresaTercerizada = EmpresaTercerizada;
     }
 

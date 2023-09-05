@@ -3,11 +3,17 @@ package controle;
 import modelo.Curso;
 import util.Input;
 import java.util.ArrayList;
+import modelo.Professor;
 import util.DialogBoxUtils;
 
-public class CadastroCurso {
+public class CadastroCurso implements ICadastro{
+    private CadastroProfessor cadProfessor;
     private ArrayList<Curso> listaCursos = new ArrayList<>();
 
+    public CadastroCurso(CadastroProfessor cadProfessor) {
+        this.cadProfessor = cadProfessor;
+    }
+    
     public ArrayList<Curso> getListaCursos() {
         return listaCursos;
     }
@@ -20,13 +26,13 @@ public class CadastroCurso {
                 case 1 ->
                     cadastrar();
                 case 2 ->
-                    buscar();
+                    pesquisar();
                 case 3 ->
                     alterar();
                 case 4 ->
                     remover();
                 case 5 ->
-                    listar(listaCursos);
+                    listar();
                 case 0 ->
                     System.out.println("\nRetornando ao menu principal...");
                 default ->
@@ -35,6 +41,7 @@ public class CadastroCurso {
         } while (op != 0);
     }
     
+    @Override
     public void cadastrar() {
         try {
            Curso curso = new Curso();
@@ -46,10 +53,11 @@ public class CadastroCurso {
         }
     }
 
+    @Override
     public void alterar() {
         Curso curso = pesquisa();
         if (curso == null) {
-            DialogBoxUtils.exibirMensagem("Pessoa não encotrada", "Nenhuma pessoa foi encontrada!");
+            DialogBoxUtils.exibirMensagem("Curso não encotrado", "Nenhum curso foi encontrado!");
             return;
         }
         try {
@@ -67,9 +75,15 @@ public class CadastroCurso {
         curso.setCargaHoraria(Input.nextInt());
         System.out.print("Quantidade de Semestres: ");
         curso.setQtdSemestres(Input.nextInt());
+        
+        System.out.println("Informe o CPF do Professor Coordenador do curso: ");
+        String dadoBusca = Input.next();
+        Professor coordenador = (Professor) cadProfessor.pesquisa(cadProfessor.listaDePessoaProfessores(), dadoBusca);
+        curso.setCoordenador(coordenador);
     }
     
-    public void buscar(){
+    @Override
+    public void pesquisar(){
         System.out.print("Informe o nome do curso: ");
         String nomeCurso = Input.nextLine();
         if(buscarListaCursos(nomeCurso.toLowerCase()).isEmpty()){
@@ -90,6 +104,7 @@ public class CadastroCurso {
         return resultadoBusca;
     }
     
+    @Override
     public void remover(){
         Curso curso = pesquisa();
 
@@ -120,5 +135,10 @@ public class CadastroCurso {
         for(Curso listaCurso: listaCursos){
             listaCurso.exibirInformacoes();
         }
+    }
+
+    @Override
+    public void listar() {
+        listar(listaCursos);
     }
 }
