@@ -13,10 +13,10 @@ public class Aluno extends Pessoa{
         this.matriculaCurso = new MatriculaCurso();
     }
 
-    public Aluno(String ra, MatriculaCurso curso, String nome, String cpf, LocalDate dataNascimento, String email, Endereco endereco) {
+    public Aluno(String ra, String nome, String cpf, LocalDate dataNascimento, String email, Endereco endereco) {
         super(nome, cpf, dataNascimento, email, endereco);
         this.ra = ra;
-        this.matriculaCurso = curso;
+         this.matriculaCurso = new MatriculaCurso();
     }
 
     public String getRa() {

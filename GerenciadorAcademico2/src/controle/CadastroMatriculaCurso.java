@@ -32,7 +32,7 @@ public class CadastroMatriculaCurso {
     public void menuControleMatriculaCurso(){
         int op;
         do {
-            op = MenuCadastro.selecionarOpcaoMenuMatricula("Cursos");
+            op = MenuCadastro.selecionarOpcaoMenuMatricula("Curso");
             switch (op) {
                 case 1 ->
                     realizarMatriculaCurso();
